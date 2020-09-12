@@ -1,0 +1,2 @@
+FLASK_APP=braumburg.py
+FLASK_ENV=development
