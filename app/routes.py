@@ -8,6 +8,7 @@ socketio = SocketIO(app)
 def welcome():
     if request.method == "POST":
         req = request.form
+        print(req)
         return redirect("/index")
     else:
         character = {
