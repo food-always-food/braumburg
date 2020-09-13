@@ -1,7 +1,7 @@
 
 
 $(document).ready(function () {
-    $(".se-pre-con").fadeOut(5000);
+    $(".se-pre-con").fadeOut(1600);
     $("button").click(function () {
         $("p").hide();
         
@@ -17,4 +17,8 @@ function openNav() {
   function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
   }
+
+  // function myFunction(x) {
+  //   x.classList.toggle("change");
+  // }
 
