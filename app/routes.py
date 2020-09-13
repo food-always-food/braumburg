@@ -1,10 +1,29 @@
-from flask import render_template, session
+from flask import render_template, session, request, redirect
 from flask_socketio import SocketIO, emit
 from app import app
 
 socketio = SocketIO(app)
 
-@app.route('/')
+@app.route('/',methods=["GET","POST"])
+def welcome():
+    if request.method == "POST":
+        req = request.form
+        return redirect("/index")
+    else:
+        character = {
+            "firstName" : "Elysia",
+            "lastName" : "Von Lucan",
+            "primaryGoal" : "Rid the world of supernatural creatures - its your lifes work afterall and you know waht they say about rest for the wicked. ",
+            "secondaryGoal" : "This would be a secondary goal",
+            "tertiaryGoal" : "This would be a tertiary goal",
+            "winCondition" : "This is your win condition"
+        }
+        page = {
+            "title" : "Welcome to Castle Braumburg",
+            "background" : "welcome/enter.jpg"
+        }
+        return render_template('welcome.html',page = page,character = character)
+
 @app.route('/index')
 def index():
     character = {

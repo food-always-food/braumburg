@@ -2,10 +2,10 @@
 
 $(document).ready(function () {
     $(".se-pre-con").fadeOut(1600);
-    $("button").click(function () {
-        $("p").hide();
+    // $("button").click(function () {
+    //     $("p").hide();
         
-    });
+    // });
 });
 
 /* Set the width of the side navigation to 250px */

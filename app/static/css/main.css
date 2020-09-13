@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne&display=swap');
 
 
 div.container {
@@ -11,7 +12,6 @@ div.container {
     height: 100vh;
 }
 
-
 h1,
 h2 {
     font-family: 'Staatliches';
@@ -22,6 +22,14 @@ h1.light {
     text-align: center;
 }
 
+body {
+    font-family: 'Syne', sans-serif;
+}
+
+p.light {
+    color: #CDD1D3;
+    text-align: justify;
+}
 div.col-sm {
     background-color: rgba(255, 255, 255, 0.5);
 }
@@ -32,37 +40,23 @@ div.col-sm {
     margin-left: 2em;
 }
 
-/* sample below */
-/* The side navigation menu */
-.sidenav {
-    height: 100%;
-    /* 100% Full-height */
-    width: 0;
-    /* 0 width - change this with JavaScript */
-    position: fixed;
-    /* Stay in place */
-    z-index: 1;
-    /* Stay on top */
-    top: 0;
-    /* Stay at the top */
-    left: 0;
-    background-color: #111;
-    /* Black*/
-    overflow-x: hidden;
-    /* Disable horizontal scroll */
-    padding-top: 60px;
-    /* Place content 60px from the top */
-    transition: 0.5s;
-    /* 0.5 second transition effect to slide in the sidenav */
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 40%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
 
-/* The navigation menu links */
-.sidenav a {
-    padding: 8px 8px 8px 32px;
+button.start{
+    background-color: #6d0000;
+    border: none;
+    border-radius: 5px;
+    color: #CDD1D3;
+    padding: 15px 32px;
+    text-align: center;
     text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
+    display: inline-block;
     font-family: 'Staatliches';
+    font-size: 1.5em;
 }
