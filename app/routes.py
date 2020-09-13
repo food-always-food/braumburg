@@ -1,6 +1,7 @@
 from flask import render_template, session, request, redirect
 from flask_socketio import SocketIO, emit
 from app import app
+import app.database as database
 
 socketio = SocketIO(app)
 
@@ -8,17 +9,16 @@ socketio = SocketIO(app)
 def welcome():
     if request.method == "POST":
         req = request.form
-        print(req)
-        return redirect("/index")
+        result = database.checkGame(req['code'])
+        if len(result) != 0 :
+            print(result)
+            print(req)
+            session['Game'] = result[0]['name']
+            return redirect("/index")
+        else:
+            return redirect("/")
+
     else:
-        character = {
-            "firstName" : "Elysia",
-            "lastName" : "Von Lucan",
-            "primaryGoal" : "Rid the world of supernatural creatures - its your lifes work afterall and you know waht they say about rest for the wicked. ",
-            "secondaryGoal" : "This would be a secondary goal",
-            "tertiaryGoal" : "This would be a tertiary goal",
-            "winCondition" : "This is your win condition"
-        }
         page = {
             "title" : "Welcome to Castle Braumburg",
             "background" : "welcome/enter.jpg"
@@ -36,7 +36,7 @@ def index():
         "winCondition" : "This is your win condition"
     }
     page = {
-        "title" : "Home",
+        "title" : session['Game'],
         "background" : "home/home.jpg"
     }
     return render_template('index.html',page = page,character = character)
@@ -152,5 +152,3 @@ def help():
         "background" : "goals/castle.jpg"
     }
     return render_template('help.html',page = page,character = character)
-if __name__ == '__main__':
-    socketio.run(app)
