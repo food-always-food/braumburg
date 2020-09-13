@@ -1,19 +1,9 @@
 CREATE TABLE game_instances(
     id SERIAL PRIMARY KEY,
     code VARCHAR(5) NOT NULL UNIQUE,
+    name TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)
-
-CREATE TABLE log(
-    id SERIAL PRIMARY KEY,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    player_char_id INT REFERENCES ,
-    action_type TEXT,
-    action_information JSON,
-    CONSTRAINT fk_player_id
-        FOREIGN KEY (player_char_id)
-            REFERENCES player_characters(id)
-)
+);
 
 CREATE TABLE characters (
     id SERIAL PRIMARY KEY,
@@ -38,7 +28,7 @@ CREATE TABLE characters (
 
 CREATE TABLE player_characters (
     id SERIAL PRIMARY KEY,
-    game VARCHAR(5) NOT NULL,
+    game VARCHAR(5) NOT NULL REFERENCES game_instances(code),
     title TEXT,
     first_name TEXT,
     last_name TEXT,
@@ -56,8 +46,20 @@ CREATE TABLE player_characters (
     round_two_reveal JSON,
     round_three_reveal JSON,
     starting_inventory TEXT[],
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE game_log(
+    id SERIAL PRIMARY KEY,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_game_id
-        FOREIGN KEY (game)
-            REFERENCES game_instances(code)
+    player_char_id INT REFERENCES player_characters(id) ,
+    action_type TEXT,
+    action_information JSON
+);
+
+CREATE TABLE abilites(
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT,
+    type TEXT NOT NULL
 );
