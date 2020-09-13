@@ -14,6 +14,7 @@ def welcome():
             print(result)
             print(req)
             session['Game'] = result[0]['name']
+            session['Code'] = req['code']
             return redirect("/index")
         else:
             return redirect("/")
@@ -27,19 +28,22 @@ def welcome():
 
 @app.route('/index')
 def index():
-    character = {
-        "firstName" : "Elysia",
-        "lastName" : "Von Lucan",
-        "primaryGoal" : "Rid the world of supernatural creatures - its your lifes work afterall and you know waht they say about rest for the wicked. ",
-        "secondaryGoal" : "This would be a secondary goal",
-        "tertiaryGoal" : "This would be a tertiary goal",
-        "winCondition" : "This is your win condition"
-    }
-    page = {
-        "title" : session['Game'],
-        "background" : "home/home.jpg"
-    }
-    return render_template('index.html',page = page,character = character)
+    if session.get('Code'):
+        character = {
+            "firstName" : "Elysia",
+            "lastName" : "Von Lucan",
+            "primaryGoal" : "Rid the world of supernatural creatures - its your lifes work afterall and you know waht they say about rest for the wicked. ",
+            "secondaryGoal" : "This would be a secondary goal",
+            "tertiaryGoal" : "This would be a tertiary goal",
+            "winCondition" : "This is your win condition"
+        }
+        page = {
+            "title" : session['Game'],
+            "background" : "home/home.jpg"
+        }
+        return render_template('index.html',page = page,character = character)
+    else:
+        return redirect("/")
 
 @app.route('/character')
 def character():
