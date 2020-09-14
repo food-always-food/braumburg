@@ -11,8 +11,6 @@ def welcome():
         req = request.form
         result = database.checkGame(req['code'])
         if len(result) != 0 :
-            print(result)
-            print(req)
             session['Game'] = result[0]['name']
             session['Code'] = req['code']
             return redirect("/index")
