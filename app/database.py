@@ -21,16 +21,89 @@ def checkGame(strings):
     cur.close()
     return result
     
+def checkPlayer(castleCode, email):
+    stmt = f"SELECT * FROM player_characters WHERE game = '{castleCode}' AND email='{email}'"
+    cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    cur.execute(stmt)
+    result = cur.fetchall()
+    cur.close()
+    return result
+    
 def createGame(name):
     strings = createCode()
     unique = checkGame(strings)
     if len(unique) != 0:
-        createGame()
+        createGame(name)
     else:
-        stmt = f"INSERT INTO game_instances(code,name) VALUES ('{strings}','{name}')"
+        stmt = f"INSERT INTO game_instances(code,name,status) VALUES ('{strings}','{name}','waiting')"
         cur = conn.cursor()
         cur.execute(stmt)
         cur.close()
         conn.commit()
         return strings
 
+def getCharacter(charId):
+    stmt = f"SELECT * FROM characters WHERE id = '{charId}'"
+    cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    cur.execute(stmt)
+    result = cur.fetchall()
+    cur.close()
+    return result
+
+def addPlayer(castleCode,email):
+    options = [5,6,7]
+    taken = [0]
+    stmt = f"SELECT character_id FROM player_characters WHERE game = '{castleCode}'"
+    cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    cur.execute(stmt)
+    result = cur.fetchall()
+    cur.close()
+    if len(result) != 0:
+        for x in result:
+            taken.append(int(x['character_id']))
+    available = list(set(options)-set(taken))
+    if len(available) != 0:
+        choice = random.choice(available)
+        stmt = f"INSERT INTO player_characters(game,email,character_id) VALUES ('{castleCode}','{email}',{choice})"
+        cur = conn.cursor()
+        cur.execute(stmt)
+        cur.close()
+        conn.commit()
+        result = checkPlayer(castleCode,email)
+        return result 
+    else:
+        return False
+
+def joinGame(castleCode,email):
+    check_game = checkGame(castleCode)
+    if len(check_game) == 0:
+        print("Game Doesn't Exist")
+        return False
+    elif check_game[0]['status'] == 'waiting':
+        check_player = checkPlayer(castleCode,email)
+        if len(check_player) == 0:
+            add = addPlayer(castleCode,email)
+            if add == False:
+                print("Game is full")
+                return False
+            else:
+                return add[0]
+        else: 
+            print("player is already in the game")
+            return check_player[0] #Return the player in the game
+
+    else:
+        print("Game is no longer accepting players")
+        return False
+
+def allPlayers(code):
+    stmt = f"SELECT c.title, c.first_name, c.last_name FROM player_characters pc LEFT JOIN characters c ON c.id = pc.character_id WHERE pc.game = '{code}'"
+    cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    cur.execute(stmt)
+    result = cur.fetchall()
+    cur.close()
+    return result
+
+
+# createGame("Nate Butt")
+# result = joinGame("FUUBN","duncan@thompsongroup.io")
