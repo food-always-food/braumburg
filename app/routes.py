@@ -9,11 +9,13 @@ socketio = SocketIO(app)
 def welcome():
     if request.method == "POST":
         req = request.form
-        result = database.checkGame(req['code'])
-        if len(result) != 0 :
-            session['Game'] = result[0]['name']
-            session['Code'] = req['code']
-            return redirect("/index")
+        result = database.joinGame(req['code'],req['email'])
+        if result != False :
+            session['game'] = result['game']
+            session['email'] = result['email']
+            session['character_id'] = result['character_id']
+            session['player_id'] = result['id']
+            return redirect("/waiting")
         else:
             return redirect("/")
 
@@ -24,19 +26,26 @@ def welcome():
         }
         return render_template('welcome.html',page = page,character = character)
 
+@app.route('/waiting')
+def waiting():
+    if session.get('game'):
+        character = database.getCharacter(session.get('character_id'))
+        otherPlayers = database.allPlayers(session.get('game'))
+        page = {
+            "title" : "Waiting for players",
+            "background" : "home/home.jpg"
+        }
+        return render_template('waiting.html',page = page,players=otherPlayers)
+    else:
+        return redirect("/")
+
 @app.route('/index')
 def index():
-    if session.get('Code'):
-        character = {
-            "firstName" : "Elysia",
-            "lastName" : "Von Lucan",
-            "primaryGoal" : "Rid the world of supernatural creatures - its your lifes work afterall and you know waht they say about rest for the wicked. ",
-            "secondaryGoal" : "This would be a secondary goal",
-            "tertiaryGoal" : "This would be a tertiary goal",
-            "winCondition" : "This is your win condition"
-        }
+    if session.get('game'):
+        character = database.getCharacter(session.get('character_id'))
+        print(character)
         page = {
-            "title" : session['Game'],
+            "title" : "home",
             "background" : "home/home.jpg"
         }
         return render_template('index.html',page = page,character = character)
@@ -45,19 +54,16 @@ def index():
 
 @app.route('/character')
 def character():
-    character = {
-        "firstName" : "Elysia",
-        "lastName" : "Von Lucan",
-        "primaryGoal" : "Rid the world of supernatural creatures - its your lifes work afterall and you know waht they say about rest for the wicked. ",
-        "secondaryGoal" : "This would be a secondary goal",
-        "tertiaryGoal" : "This would be a tertiary goal",
-        "winCondition" : "This is your win condition"
-    }
-    page = {
-        "title" : "Character",
-        "background" : "character/character.jpg"
-    }
-    return render_template('character.html',page = page,character = character)
+    if session.get('game'):
+        character = database.getCharacter(session.get('character_id'))
+        print(character)
+        page = {
+            "title" : "Character",
+            "background" : "character/character.jpg"
+        }
+        return render_template('character.html',page = page,character = character)
+    else:
+        return redirect("/")
 
 @app.route('/map')
 def map():

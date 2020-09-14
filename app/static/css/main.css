@@ -6,6 +6,7 @@ div.container {
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .full-height {
@@ -17,9 +18,27 @@ h2 {
     font-family: 'Staatliches';
 }
 
+h2 {
+    font-size: 1.5rem;
+}
+
 h1.light {
     color: #CDD1D3;
     text-align: center;
+}
+
+h1.name {
+    color: #CDD1D3;
+    text-align: left;
+    margin-left: 1rem;
+}
+
+h2.name {
+    color: #CDD1D3;
+    text-align: left;
+    margin-left: 1rem;
+    margin-bottom: -0.75rem;
+    font-size: 1rem;
 }
 
 body {
@@ -30,14 +49,15 @@ p.light {
     color: #CDD1D3;
     text-align: justify;
 }
+
 div.col-sm {
     background-color: rgba(255, 255, 255, 0.5);
 }
 
 .margin {
-    padding-top: 1em;
-    margin-right: 2em;
-    margin-left: 2em;
+    padding-top: 1rem;
+    margin-right: 2rem;
+    margin-left: 2rem;
 }
 
 .vertical-center {
@@ -48,7 +68,7 @@ div.col-sm {
     transform: translateY(-50%);
 }
 
-button.start{
+button.start {
     background-color: #6d0000;
     border: none;
     border-radius: 5px;
