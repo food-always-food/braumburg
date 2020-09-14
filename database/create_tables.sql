@@ -2,6 +2,7 @@ CREATE TABLE game_instances(
     id SERIAL PRIMARY KEY,
     code VARCHAR(5) NOT NULL UNIQUE,
     name TEXT NOT NULL,
+    status TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -16,8 +17,8 @@ CREATE TABLE characters (
     starting_information TEXT,
     character_secret TEXT,
     character_clue TEXT,
-    starting_tips JSON,
-    primay_goal TEXT,
+    starting_tips TEXT,
+    primary_goal TEXT,
     secondary_goal TEXT,
     tertiary_goal TEXT,
     round_one_reveal JSON,
@@ -29,23 +30,8 @@ CREATE TABLE characters (
 CREATE TABLE player_characters (
     id SERIAL PRIMARY KEY,
     game VARCHAR(5) NOT NULL REFERENCES game_instances(code),
-    title TEXT,
-    first_name TEXT,
-    last_name TEXT,
-    portrait TEXT,
-    public_description TEXT,
-    private_description TEXT,
-    starting_information TEXT,
-    character_secret TEXT,
-    character_clue TEXT,
-    starting_tips JSON,
-    primay_goal TEXT,
-    secondary_goal TEXT,
-    tertiary_goal TEXT,
-    round_one_reveal JSON,
-    round_two_reveal JSON,
-    round_three_reveal JSON,
-    starting_inventory TEXT[],
+    email TEXT NOT NULL UNIQUE,
+    character_id INT REFERENCES characters(id),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
