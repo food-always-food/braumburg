@@ -1,8 +1,11 @@
-from flask import render_template, session, request, redirect
-from flask_socketio import SocketIO, emit
-from app import app
-import app.database as database
+from flask import render_template, session, request, redirect, Flask
+from flask_socketio import SocketIO, emit, send
+# from app import app
+import database as database
 
+app = Flask(__name__)
+# app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
+app.config['SECRET_KEY'] = "1023912038109823aljksdflkajds"
 socketio = SocketIO(app)
 
 @app.route('/',methods=["GET","POST"])
@@ -20,6 +23,7 @@ def welcome():
             return redirect("/")
 
     else:
+        print("working")
         page = {
             "title" : "Welcome to Castle Braumburg",
             "background" : "welcome/enter.jpg"
@@ -160,3 +164,15 @@ def help():
         "background" : "goals/castle.jpg"
     }
     return render_template('help.html',page = page,character = character)
+
+@socketio.on('my event')
+def handle_my_custom_event(json):
+    print('received json: ' + str(json))
+
+@socketio.on('connect')
+def test_connect():
+    print("connected")
+    emit('my response', {'data': 'Connected'})
+
+if __name__ == '__main__':
+    socketio.run(app)
