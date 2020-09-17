@@ -97,7 +97,24 @@ def joinGame(castleCode,email):
         return False
 
 def allPlayers(code):
-    stmt = f"SELECT c.title, c.first_name, c.last_name FROM player_characters pc LEFT JOIN characters c ON c.id = pc.character_id WHERE pc.game = '{code}'"
+    stmt = f"SELECT c.id, c.title, c.first_name, c.last_name FROM player_characters pc LEFT JOIN characters c ON c.id = pc.character_id WHERE pc.game = '{code}'"
+    cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    cur.execute(stmt)
+    result = cur.fetchall()
+    cur.close()
+    return result
+
+def sendChat(code, room, message, player):
+    cur = conn.cursor()
+    cleaned = psycopg2.extensions.QuotedString(message)
+    stmt = f"INSERT INTO chat (game, room, message, player) VALUES ('{code}','{room}',{cleaned},'{player}')" 
+    cur.execute(stmt)
+    cur.close()
+    conn.commit()
+    return True
+
+def retrieveChatState(code,room):
+    stmt = f"SELECT * FROM chat WHERE game = '{code}' AND room = '{room}' ORDER BY created_at"
     cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     cur.execute(stmt)
     result = cur.fetchall()
@@ -105,5 +122,3 @@ def allPlayers(code):
     return result
 
 
-# createGame("Nate Butt")
-# result = joinGame("FUUBN","duncan@thompsongroup.io")

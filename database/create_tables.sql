@@ -30,7 +30,7 @@ CREATE TABLE characters (
 CREATE TABLE player_characters (
     id SERIAL PRIMARY KEY,
     game VARCHAR(5) NOT NULL REFERENCES game_instances(code),
-    email TEXT NOT NULL UNIQUE,
+    email TEXT NOT NULL,
     character_id INT REFERENCES characters(id),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -48,4 +48,13 @@ CREATE TABLE abilites(
     name TEXT NOT NULL,
     description TEXT,
     type TEXT NOT NULL
+);
+
+CREATE TABLE chat(
+    id SERIAL PRIMARY KEY,
+    game VARCHAR(5) NOT NULL REFERENCES game_instances(code),
+    room TEXT NOT NULL,
+    player INT REFERENCES characters(id),
+    message TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

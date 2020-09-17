@@ -34,7 +34,6 @@ def welcome():
 def waiting():
     if session.get('game'):
         otherPlayers = database.allPlayers(session.get('game'))
-        print("after emit")
         page = {
             "title" : "Waiting for players",
             "background" : "home/home.jpg"
@@ -71,46 +70,22 @@ def character():
 
 @app.route('/map')
 def map():
-    character = {
-        "firstName" : "Elysia",
-        "lastName" : "Von Lucan",
-        "primaryGoal" : "Rid the world of supernatural creatures - its your lifes work afterall and you know waht they say about rest for the wicked. ",
-        "secondaryGoal" : "This would be a secondary goal",
-        "tertiaryGoal" : "This would be a tertiary goal",
-        "winCondition" : "This is your win condition"
-    }
     page = {
         "title" : "Goals",
         "background" : "goals/castle.jpg"
     }
-    return render_template('map.html',page = page,character = character)
+    return render_template('map.html',page = page)
 
 @app.route('/goals')
 def goals():
-    character = {
-        "firstName" : "Elysia",
-        "lastName" : "Von Lucan",
-        "primaryGoal" : "Rid the world of supernatural creatures - its your lifes work afterall and you know waht they say about rest for the wicked. ",
-        "secondaryGoal" : "This would be a secondary goal",
-        "tertiaryGoal" : "This would be a tertiary goal",
-        "winCondition" : "This is your win condition"
-    }
     page = {
         "title" : "Goals",
         "background" : "goals/castle.jpg"
     }
-    return render_template('goals.html',page = page,character = character)
+    return render_template('goals.html',page = page)
 
 @app.route('/items')
 def items():
-    character = {
-        "firstName" : "Elysia",
-        "lastName" : "Von Lucan",
-        "primaryGoal" : "Rid the world of supernatural creatures - its your lifes work afterall and you know waht they say about rest for the wicked. ",
-        "secondaryGoal" : "This would be a secondary goal",
-        "tertiaryGoal" : "This would be a tertiary goal",
-        "winCondition" : "This is your win condition"
-    }
     page = {
         "title" : "Goals",
         "background" : "goals/castle.jpg"
@@ -119,30 +94,43 @@ def items():
 
 @app.route('/conversations')
 def conversations():
-    character = {
-        "firstName" : "Elysia",
-        "lastName" : "Von Lucan",
-        "primaryGoal" : "Rid the world of supernatural creatures - its your lifes work afterall and you know waht they say about rest for the wicked. ",
-        "secondaryGoal" : "This would be a secondary goal",
-        "tertiaryGoal" : "This would be a tertiary goal",
-        "winCondition" : "This is your win condition"
-    }
-    page = {
+    if session.get('game'):
+        players = database.allPlayers(session.get('game'))
+        playerId = session.get('character_id')
+        print(playerId)
+        links = []
+        for x in players:
+            order = [int(x['id']),int(playerId)]
+            print(order)
+            ordered = sorted(order)
+            print(ordered)
+            link = f"{ordered[0]}-{ordered[1]}" 
+            links.append(link)
+        print(links)
+        page = {
         "title" : "Goals",
-        "background" : "goals/castle.jpg"
+        "background" : "conversations/chat.jpg"
     }
-    return render_template('conversations.html',page = page,character = character)
+        return render_template('conversations.html',page = page, players = players)
+    else:
+        return redirect("/")
+
+@app.route('/chat<id>')
+def chat(id):
+    if session.get('game'):
+        print(session.get('character_id'))
+        chatState = database.retrieveChatState(session.get('game'),id)
+        session['room'] = id
+        page = {
+        "title" : "Goals",
+        "background" : "conversations/chat.jpg"
+    }
+        return render_template('chat.html',page = page, chats = chatState, localPlayer = session.get('character_id'))
+    else:
+        return redirect("/")
 
 @app.route('/suspects')
 def suspects():
-    character = {
-        "firstName" : "Elysia",
-        "lastName" : "Von Lucan",
-        "primaryGoal" : "Rid the world of supernatural creatures - its your lifes work afterall and you know waht they say about rest for the wicked. ",
-        "secondaryGoal" : "This would be a secondary goal",
-        "tertiaryGoal" : "This would be a tertiary goal",
-        "winCondition" : "This is your win condition"
-    }
     page = {
         "title" : "Goals",
         "background" : "goals/castle.jpg"
@@ -151,14 +139,6 @@ def suspects():
 
 @app.route('/help')
 def help():
-    character = {
-        "firstName" : "Elysia",
-        "lastName" : "Von Lucan",
-        "primaryGoal" : "Rid the world of supernatural creatures - its your lifes work afterall and you know waht they say about rest for the wicked. ",
-        "secondaryGoal" : "This would be a secondary goal",
-        "tertiaryGoal" : "This would be a tertiary goal",
-        "winCondition" : "This is your win condition"
-    }
     page = {
         "title" : "Goals",
         "background" : "goals/castle.jpg"
@@ -168,15 +148,29 @@ def help():
 @socketio.on('joined')
 def send_character(data):
     print(data)
-    # if data['data'] =='/waiting':
-        # check = 
-    character = database.getCharacter(session.get('character_id'))
-    socketio.emit("new-player",character,room='waiting',include_self=False)
+    if data['data'] =='/waiting':
+        join_room(data['data'])
+        character = database.getCharacter(session.get('character_id'))
+        socketio.emit("new-player",character,room=data['data'],include_self=False)
+    else:
+        join_room(data['data'])
+        character = database.getCharacter(session.get('character_id'))
+        socketio.emit("new-player",character,room=request.sid)
 
 @socketio.on('connect')
 def test_connect():
     print("connected")
-    join_room('waiting')
+    
+@socketio.on('chatSent')
+def chat_sent(data):
+    print(session.get('room'))
+    database.sendChat(session.get('game'),session.get('room'),data['data'],data['player'])
+    emit("chat",data,room=('/chat'+session.get('room')))
+    print(data)
+
+@socketio.on('chatJoined')
+def chat_joined(data):
+    pass
     
 
 if __name__ == '__main__':

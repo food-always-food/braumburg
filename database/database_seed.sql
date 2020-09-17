@@ -8,7 +8,7 @@ starting_information,
 character_secret,
 character_clue,
 starting_tips,
-primay_goal,
+primary_goal,
 secondary_goal,
 tertiary_goal)
 VALUES
@@ -66,7 +66,7 @@ starting_information,
 character_secret,
 character_clue,
 starting_tips,
-primay_goal,
+primary_goal,
 secondary_goal,
 tertiary_goal)
 VALUES
@@ -123,7 +123,7 @@ starting_information,
 character_secret,
 character_clue,
 starting_tips,
-primay_goal,
+primary_goal,
 secondary_goal,
 tertiary_goal)
 VALUES
@@ -168,23 +168,4 @@ Take a careful look at the page of the Imperium Ritual that you have, and keep a
 'Stop the Imperium Ritual - It would be extremely dangerous for someone to have power over all supernatural creatures.  You must ensure the ritual is not completed (20 points).  OR, if by some horrible circumstance the ritual is completed, you must find and kill whoever completed it to stop them wreaking havoc!',
 'Avenge the death of your brother - Find the cannibal who killed Nathan and bring them to justice. This is vigilante justice, so you don’t need to provide anyone else with proof, but you do need to take down the correct individual to get your points.',
 'Jazz Music - You have been pretty stressed out lately, and you’ve found nothing relaxes you like good ol’ jazz music.  Make sure jazz music is playing often throughout the evening.'
-);
-
-    title TEXT,
-    first_name TEXT,
-    last_name TEXT,
-    portrait TEXT,
-    public_description TEXT,
-    private_description TEXT,
-    starting_information TEXT,
-    character_secret TEXT,
-    character_clue TEXT,
-    starting_tips JSON,
-    primay_goal TEXT,
-    secondary_goal TEXT,
-    tertiary_goal TEXT,
-    round_one_reveal JSON,
-    round_two_reveal JSON,
-    round_three_reveal JSON,
-    starting_inventory TEXT[]
 );

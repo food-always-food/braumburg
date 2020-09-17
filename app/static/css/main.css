@@ -50,6 +50,16 @@ p.light {
     text-align: justify;
 }
 
+p.local{
+    color: #CDD1D3;
+    text-align: right;
+}
+
+p.nonLocal{
+    color: #CDD1D3;
+    text-align: left;
+}
+
 div.col-sm {
     background-color: rgba(255, 255, 255, 0.5);
 }
