@@ -1,12 +1,13 @@
 from flask import render_template, session, request, redirect, Flask
-from flask_socketio import SocketIO, emit, send
+from flask_socketio import SocketIO, emit, send, join_room
 # from app import app
-import database as database
-
+import eventlet
+eventlet.monkey_patch()
 app = Flask(__name__)
 # app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
 app.config['SECRET_KEY'] = "1023912038109823aljksdflkajds"
-socketio = SocketIO(app)
+socketio = SocketIO(app,async_mode=None)
+import database as database
 
 @app.route('/',methods=["GET","POST"])
 def welcome():
@@ -23,18 +24,17 @@ def welcome():
             return redirect("/")
 
     else:
-        print("working")
         page = {
             "title" : "Welcome to Castle Braumburg",
             "background" : "welcome/enter.jpg"
         }
-        return render_template('welcome.html',page = page,character = character)
+        return render_template('welcome.html',page = page)
 
 @app.route('/waiting')
 def waiting():
     if session.get('game'):
-        character = database.getCharacter(session.get('character_id'))
         otherPlayers = database.allPlayers(session.get('game'))
+        print("after emit")
         page = {
             "title" : "Waiting for players",
             "background" : "home/home.jpg"
@@ -165,14 +165,19 @@ def help():
     }
     return render_template('help.html',page = page,character = character)
 
-@socketio.on('my event')
-def handle_my_custom_event(json):
-    print('received json: ' + str(json))
+@socketio.on('joined')
+def send_character(data):
+    print(data)
+    # if data['data'] =='/waiting':
+        # check = 
+    character = database.getCharacter(session.get('character_id'))
+    socketio.emit("new-player",character,room='waiting',include_self=False)
 
 @socketio.on('connect')
 def test_connect():
     print("connected")
-    emit('my response', {'data': 'Connected'})
+    join_room('waiting')
+    
 
 if __name__ == '__main__':
-    socketio.run(app)
+    socketio.run(app, debug=True)
