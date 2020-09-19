@@ -13,18 +13,35 @@ CREATE TABLE characters (
     last_name TEXT,
     portrait TEXT,
     public_description TEXT,
-    private_description TEXT,
-    starting_information TEXT,
+    private_description_cover_story TEXT,
+    private_description_truth TEXT,
+    starting_information_other_characters TEXT,
+    starting_information_hints TEXT,
     character_secret TEXT,
     character_clue TEXT,
-    starting_tips TEXT,
     primary_goal TEXT,
     secondary_goal TEXT,
     tertiary_goal TEXT,
     round_one_reveal JSON,
     round_two_reveal JSON,
     round_three_reveal JSON,
-    starting_inventory TEXT[]
+    starting_inventory TEXT[],
+    abilites TEXT[]
+);
+
+CREATE TABLE items (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT,
+    type TEXT NOT NULL,
+    uses INT
+);
+
+CREATE TABLE abilites(
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT,
+    type TEXT NOT NULL
 );
 
 CREATE TABLE player_characters (
@@ -35,19 +52,19 @@ CREATE TABLE player_characters (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE player_items (
+    id SERIAL PRIMARY KEY,
+    item_id INT REFERENCES items(id),
+    player_id INT REFERENCES player_characters(id),
+    uses_remaining INT
+);
+
 CREATE TABLE game_log(
     id SERIAL PRIMARY KEY,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     player_char_id INT REFERENCES player_characters(id) ,
     action_type TEXT,
     action_information JSON
-);
-
-CREATE TABLE abilites(
-    id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL,
-    description TEXT,
-    type TEXT NOT NULL
 );
 
 CREATE TABLE chat(
@@ -58,3 +75,9 @@ CREATE TABLE chat(
     message TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+
+-- SELECT
+--   'DROP TABLE IF EXISTS "' || tablename || '" CASCADE;' 
+-- from
+--   pg_tables WHERE schemaname = 'public';

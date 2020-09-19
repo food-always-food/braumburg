@@ -3,20 +3,25 @@
 {% block content %}
 <div class="row">
     <div class="col">
-        <h1 class="light">Suspects</h1>
+        <h1 class="light">suspects</h1>
     </div>
 </div>
-<div class="row">
-    <div class="col-sm margin">
-        <h2>Primary Goals</h2>
-        <p>{{ character.primaryGoal }}</p>
-    </div>
+<div class='add-player'>
+    {% for x in players %}
+        {% if x.id != localPlayer %}
+        <div class="row">
+            <div class="col" onclick='expandSus({{x.id}})'>
+                <h2 class="name">{{ x.title }}</h2>
+                <h1 class="name">{{ x.first_name }} {{ x.last_name }}</h1>
+            </div>
+        </div>
+        <div class="row {{x.id}}" style="display:none">
+            <div class="col-sm margin">
+                <p>{{ x.public_description }}</p>
+            </div>
+        </div>
+        {% else %}
+    {% endif %}
+    {% endfor %}
 </div>
-<div class="row">
-    <div class="col-sm margin">
-        <h2>Secondary Goals</h2>
-        <p>{{ character.secondaryGoal }}</p>
-    </div>
-</div>
-
 {% endblock %}

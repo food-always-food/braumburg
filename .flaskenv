@@ -1,3 +1,3 @@
-FLASK_APP=braumburg.py
+FLASK_APP=app.py
 FLASK_ENV=development
 SECRET_KEY=1209kdaeoak

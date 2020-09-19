@@ -7,6 +7,8 @@ div.container {
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    position: fixed; 
+    overflow-y: scroll;
 }
 
 .full-height {
@@ -41,6 +43,14 @@ h2.name {
     font-size: 1rem;
 }
 
+h2.nameTop {
+    color: #CDD1D3;
+    text-align: right;
+    margin-left: 1rem;
+    margin-top: 2rem;
+    font-size: 1rem;
+}
+
 body {
     font-family: 'Syne', sans-serif;
 }
@@ -53,11 +63,13 @@ p.light {
 p.local{
     color: #CDD1D3;
     text-align: right;
+    padding-top: 1em;
 }
 
 p.nonLocal{
     color: #CDD1D3;
     text-align: left;
+    padding-top: 1em;
 }
 
 div.col-sm {
@@ -70,6 +82,10 @@ div.col-sm {
     margin-left: 2rem;
 }
 
+div.chat{
+    background-color: rgba(0, 0, 0, 0.45);
+    margin: 0.5em 1em;
+}
 .vertical-center {
     margin: 0;
     position: absolute;

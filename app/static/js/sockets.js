@@ -12,10 +12,10 @@ $(document).ready(function () {
 
 // socket.on('chatReceived',function (data));
 
-socket.on('chatJoin'),
-    function (data) {
-        var roomName = data;
-    };
+socket.on('chatJoin', function (data) {
+        console.log(data)
+        player = data[0].id;
+    });
 
 socket.on('new-player', function (data) {
     console.log(data)
@@ -49,11 +49,12 @@ $('#text').keypress(function (e) {
 });
 
 socket.on('chat', function (data) {
-    console.log(data)
+    console.log(data);
     if (data.player === player) {
         $(".chats").append(
             `<div class="row">
-            <div class="col">
+            <div class="col chat">
+            <h2 class="name">`+data.sender+`</h2>
             <p class="local">` + data.data + `</p>
             </div>
         </div>`
@@ -61,10 +62,11 @@ socket.on('chat', function (data) {
     } else {
         $(".chats").append(
             `<div class="row">
-                <div class="col">
+                <div class="col chat">
+                <h2 class="name">`+data.sender+`</h2>
                 <p class="nonLocal">` + data.data + `</p>
                 </div>
             </div>`
         )
-    }
+    };
 });

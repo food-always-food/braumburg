@@ -6,17 +6,24 @@
         <h1 class="light">Chat</h1>
     </div>
 </div>
+<div class="row">
+    <div class="col">
+        <h2 class="name">Conversation between You and {{ them[0].first_name }} {{ them[0].last_name }} </h2>
+    </div>
+</div>
 <div class='chats'>
     {% for x in chats %}
         {% if x.player == localPlayer%}
         <div class="row">
-            <div class="col">
+            <div class="col chat">
+                <h2 class="name">{{you[0].first_name}} {{you[0].last_name}}</h2>
                 <p class="local">{{ x.message }}</p>
             </div>
         </div>
         {% else %}
         <div class="row">
-            <div class="col">
+            <div class="col chat">
+                <h2 class="name">{{ them[0].first_name }} {{ them[0].last_name }}</h2>
                 <p class="nonLocal">{{ x.message }}</p>
             </div>
         </div>

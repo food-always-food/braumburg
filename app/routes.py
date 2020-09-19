@@ -1,6 +1,6 @@
 from flask import render_template, session, request, redirect, Flask
 from flask_socketio import SocketIO, emit, send, join_room
-# from app import app
+# import app
 import eventlet
 eventlet.monkey_patch()
 app = Flask(__name__)
@@ -19,7 +19,7 @@ def welcome():
             session['email'] = result['email']
             session['character_id'] = result['character_id']
             session['player_id'] = result['id']
-            return redirect("/waiting")
+            return redirect("/conversations")
         else:
             return redirect("/")
 
@@ -95,55 +95,78 @@ def items():
 @app.route('/conversations')
 def conversations():
     if session.get('game'):
-        players = database.allPlayers(session.get('game'))
         playerId = session.get('character_id')
-        print(playerId)
+        you = database.getCharacter(playerId)
+        players = database.allPlayers(session.get('game'))
         links = []
+        index = 0
         for x in players:
-            order = [int(x['id']),int(playerId)]
-            print(order)
-            ordered = sorted(order)
-            print(ordered)
-            link = f"{ordered[0]}-{ordered[1]}" 
-            links.append(link)
+            if x['id'] != playerId:
+                order = [int(x['id']),int(playerId)]
+                print(order)
+                ordered = sorted(order)
+                print(ordered)
+                link = f"{ordered[0]}-{ordered[1]}" 
+                links.append(link)
+                players[index]['link'] = link
+            index += 1
         print(links)
         page = {
-        "title" : "Goals",
+        "title" : "Conversations",
         "background" : "conversations/chat.jpg"
     }
-        return render_template('conversations.html',page = page, players = players)
+        return render_template('conversations.html',page = page, players = players, localPlayer = playerId, you=you)
     else:
         return redirect("/")
 
 @app.route('/chat<id>')
 def chat(id):
     if session.get('game'):
-        print(session.get('character_id'))
+        playerId = session.get('character_id')
+        you = database.getCharacter(playerId)
+        step1 = id.replace(str(playerId),'')
+        otherPlayerId = step1.replace('-','')
+        otherPlayer = database.getCharacter(int(otherPlayerId))
+        session['player_name'] = you[0]['first_name'] + ' ' + you[0]['last_name']
+        print(session['player_name'])
+        session['other_player_name'] = otherPlayer[0]['first_name'] + ' ' + otherPlayer[0]['last_name']
+        print(session['other_player_name'])
         chatState = database.retrieveChatState(session.get('game'),id)
         session['room'] = id
         page = {
-        "title" : "Goals",
+        "title" : "Chat With " + otherPlayer[0]['first_name'] + ' ' + otherPlayer[0]['last_name'],
         "background" : "conversations/chat.jpg"
     }
-        return render_template('chat.html',page = page, chats = chatState, localPlayer = session.get('character_id'))
+        return render_template('chat.html',page = page, chats = chatState, localPlayer = session.get('character_id'),you=you,them=otherPlayer)
     else:
         return redirect("/")
 
 @app.route('/suspects')
 def suspects():
-    page = {
-        "title" : "Goals",
-        "background" : "goals/castle.jpg"
-    }
-    return render_template('suspects.html',page = page,character = character)
+    if session.get('game'):
+        you = database.getCharacter(session.get('character_id'))
+        players = database.allPlayers(session.get('game'))
+        page = {
+            "title" : "Suspects",
+            "background" : "goals/castle.jpg"
+        }
+        return render_template('suspects.html',page = page,you=you, players=players, localPlayer = session.get('character_id'))
+    else:
+        return redirect("/")
 
 @app.route('/help')
 def help():
-    page = {
-        "title" : "Goals",
+    if session.get('game'):
+        you = database.getCharacter(session.get('character_id'))
+        page = {
+        "title" : "Help",
         "background" : "goals/castle.jpg"
-    }
-    return render_template('help.html',page = page,character = character)
+        }
+        return render_template('help.html',page = page,you=you)
+    else:
+        return redirect("/")
+    
+
 
 @socketio.on('joined')
 def send_character(data):
@@ -155,7 +178,7 @@ def send_character(data):
     else:
         join_room(data['data'])
         character = database.getCharacter(session.get('character_id'))
-        socketio.emit("new-player",character,room=request.sid)
+        socketio.emit("chatJoin",character,room=request.sid)
 
 @socketio.on('connect')
 def test_connect():
@@ -165,13 +188,13 @@ def test_connect():
 def chat_sent(data):
     print(session.get('room'))
     database.sendChat(session.get('game'),session.get('room'),data['data'],data['player'])
+    data['sender'] = session.get('player_name')
     emit("chat",data,room=('/chat'+session.get('room')))
     print(data)
 
 @socketio.on('chatJoined')
 def chat_joined(data):
     pass
-    
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)
