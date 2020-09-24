@@ -7,7 +7,7 @@ app = Flask(__name__)
 # app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
 app.config['SECRET_KEY'] = "1023912038109823aljksdflkajds"
 socketio = SocketIO(app,async_mode=None)
-import database as database
+import database
 
 @app.route('/',methods=["GET","POST"])
 def welcome():
@@ -29,6 +29,31 @@ def welcome():
             "background" : "welcome/enter.jpg"
         }
         return render_template('welcome.html',page = page)
+
+@app.route('/create-game',methods=["GET","POST"])
+def create_game():  
+    if request.method == "POST":
+        req = request.form
+        result = database.createGame(req['name'],req['length'])
+        session
+        print(req)
+        # result = database.joinGame(req['code'],req['email'])
+        # if result != False :
+        #     session['game'] = result['game']
+        #     session['email'] = result['email']
+        #     session['character_id'] = result['character_id']
+        #     session['player_id'] = result['id']
+        #     return redirect("/conversations")
+        # else:
+            # return redirect("/")
+        return "hello"
+
+    else:
+        page = {
+            "title" : "Welcome to Castle Braumburg",
+            "background" : "welcome/enter.jpg"
+        }
+        return render_template('create_game.html',page = page)
 
 @app.route('/waiting')
 def waiting():

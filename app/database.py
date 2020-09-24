@@ -32,17 +32,18 @@ def checkPlayer(castleCode, email):
     cur.close()
     return result
     
-def createGame(name):
+def createGame(name,length,email):
     strings = createCode()
     unique = checkGame(strings)
     if len(unique) != 0:
-        createGame(name)
+        createGame(name,length,email)
     else:
-        stmt = f"INSERT INTO game_instances(code,name,status) VALUES ('{strings}','{name}','waiting')"
+        stmt = f"INSERT INTO game_instances(code,name,status,length) VALUES ('{strings}','{name}','waiting','{length}')"
         cur = conn.cursor()
         cur.execute(stmt)
         cur.close()
         conn.commit()
+        joinGame(strings,email,"TRUE")
         return strings
 
 def getCharacter(charId):
@@ -53,7 +54,7 @@ def getCharacter(charId):
     cur.close()
     return result
 
-def addPlayer(castleCode,email):
+def addPlayer(castleCode,email,primary):
     options = [1,2,3,4,5,6]
     taken = [0]
     stmt = f"SELECT character_id FROM player_characters WHERE game = '{castleCode}'"
@@ -67,7 +68,7 @@ def addPlayer(castleCode,email):
     available = list(set(options)-set(taken))
     if len(available) != 0:
         choice = random.choice(available)
-        stmt = f"INSERT INTO player_characters(game,email,character_id) VALUES ('{castleCode}','{email}',{choice})"
+        stmt = f"INSERT INTO player_characters(game,email,character_id,primary) VALUES ('{castleCode}','{email}',{choice},{primary})"
         cur = conn.cursor()
         cur.execute(stmt)
         cur.close()

@@ -3,6 +3,7 @@ CREATE TABLE game_instances(
     code VARCHAR(5) NOT NULL UNIQUE,
     name TEXT NOT NULL,
     status TEXT NOT NULL,
+    length TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -49,6 +50,7 @@ CREATE TABLE player_characters (
     game VARCHAR(5) NOT NULL REFERENCES game_instances(code),
     email TEXT NOT NULL,
     character_id INT REFERENCES characters(id),
+    primary BOOLEAN DEFAULT FALSE NOT NULL, 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
