@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col">
+        <h1 class="light">Drawing Room</h1>
+    </div>
+</div>
+<div class='add-player'>
+    {% for x in players %}
+    <div class="row">
+        <div class="col {{ x.id }}">
+            <h2 class="name">{{ x.title }}</h2>
+            <h1 class="name">{{ x.first_name }} {{ x.last_name }}</h1>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

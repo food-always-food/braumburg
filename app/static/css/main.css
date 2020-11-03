@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne&display=swap');
+
+
+div.container {
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: fixed; 
+    overflow-y: scroll;
+}
+
+.full-height {
+    height: 100vh;
+}
+
+h1,
+h2 {
+    font-family: 'Staatliches';
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+
+h1.light {
+    color: #CDD1D3;
+    text-align: center;
+}
+
+h1.name {
+    color: #CDD1D3;
+    text-align: left;
+    margin-left: 1rem;
+}
+
+h2.name {
+    color: #CDD1D3;
+    text-align: left;
+    margin-left: 1rem;
+    margin-bottom: -0.75rem;
+    font-size: 1rem;
+}
+
+h2.nameTop {
+    color: #CDD1D3;
+    text-align: right;
+    margin-left: 1rem;
+    margin-top: 2rem;
+    font-size: 1rem;
+}
+
+body {
+    font-family: 'Syne', sans-serif;
+}
+
+p.light {
+    color: #CDD1D3;
+    text-align: justify;
+}
+
+p.local{
+    color: #CDD1D3;
+    text-align: right;
+    padding-top: 1em;
+}
+
+p.nonLocal{
+    color: #CDD1D3;
+    text-align: left;
+    padding-top: 1em;
+}
+
+div.col-sm {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.margin {
+    padding-top: 1rem;
+    margin-right: 2rem;
+    margin-left: 2rem;
+}
+
+div.chat{
+    background-color: rgba(0, 0, 0, 0.45);
+    margin: 0.5em 1em;
+}
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 40%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+button.start {
+    background-color: #6d0000;
+    border: none;
+    border-radius: 5px;
+    color: #CDD1D3;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: 'Staatliches';
+    font-size: 1.5em;
+}

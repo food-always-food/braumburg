@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col">
+        <h1 class="light">Home</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm margin">
+        <h2>Primary Goals</h2>
+        <p>{{ character[0].primay_goal }}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm margin">
+        <h2>Secondary Goals</h2>
+        <p>{{ character.secondaryGoal }}</p>
+    </div>
+</div>
+
+{% endblock %}

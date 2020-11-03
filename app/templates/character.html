@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col">
+        <h2 class="name">{{ character[0].title }}</h2>
+        <h1 class="name">{{ character[0].first_name }} {{ character[0].last_name }}</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm margin">
+        <h2>Description</h2>
+        <p>{{ character[0].public_description }}</p>
+        <p>{{ character[0].private_description | safe}}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm margin">
+        <h2>Secondary Goals</h2>
+        <p>{{ character.secondaryGoal }}</p>
+    </div>
+</div>
+
+{% endblock %}
