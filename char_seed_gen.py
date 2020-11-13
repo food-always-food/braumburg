@@ -3,7 +3,8 @@ import psycopg2
 
 df = pd.read_csv("chardb.csv")
 
-print('''INSERT INTO characters
+print(
+    """INSERT INTO characters
     (title,
     first_name,
     last_name,
@@ -18,10 +19,12 @@ print('''INSERT INTO characters
     secondary_goal,
     tertiary_goal
     )
-    VALUES''')
-for index,row in df.iterrows():
+    VALUES"""
+)
+for index, row in df.iterrows():
     try:
-        print(f'''('{row['title']}',
+        print(
+            f"""('{row['title']}',
         '{row['first_name']}',
         '{row['last_name']}',
         '{row['public_description']}',
@@ -34,9 +37,11 @@ for index,row in df.iterrows():
         '{row['primary_goal']}',
         '{row['secondary_goal']}',
         '{row['tertiary_goal']}'
-        ),''')
+        ),"""
+        )
     except:
-        print(f'''('{row['title']}',
+        print(
+            f"""('{row['title']}',
         '{row['first_name']}',
         '{row['last_name']}',
         '{row['public_description']}',
@@ -49,5 +54,5 @@ for index,row in df.iterrows():
         '{row['primary_goal']}',
         '{row['secondary_goal']}',
         '{row['tertiary_goal']}'
-        ),''')
-
+        ),"""
+        )
