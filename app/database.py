@@ -43,8 +43,8 @@ def createGame(name,length,email):
         cur.execute(stmt)
         cur.close()
         conn.commit()
-        joinGame(strings,email,"TRUE")
-        return strings
+        result = joinGame(strings,email,"TRUE") #Identify Primary user on the creation.
+        return result
 
 def getCharacter(charId):
     stmt = f"SELECT * FROM characters WHERE id = '{charId}'"
@@ -68,7 +68,7 @@ def addPlayer(castleCode,email,primary):
     available = list(set(options)-set(taken))
     if len(available) != 0:
         choice = random.choice(available)
-        stmt = f"INSERT INTO player_characters(game,email,character_id,primary) VALUES ('{castleCode}','{email}',{choice},{primary})"
+        stmt = f"INSERT INTO player_characters(game,email,character_id,primary_player) VALUES ('{castleCode}','{email}',{choice},{primary})"
         cur = conn.cursor()
         cur.execute(stmt)
         cur.close()
@@ -78,7 +78,7 @@ def addPlayer(castleCode,email,primary):
     else:
         return False
 
-def joinGame(castleCode,email):
+def joinGame(castleCode,email,primary):
     castleCode = castleCode.upper()
     check_game = checkGame(castleCode)
     if len(check_game) == 0:
@@ -87,7 +87,7 @@ def joinGame(castleCode,email):
     elif check_game[0]['status'] == 'waiting':
         check_player = checkPlayer(castleCode,email)
         if len(check_player) == 0:
-            add = addPlayer(castleCode,email)
+            add = addPlayer(castleCode,email,primary)
             if add == False:
                 print("Game is full")
                 return False

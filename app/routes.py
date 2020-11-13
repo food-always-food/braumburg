@@ -1,6 +1,6 @@
 from flask import render_template, session, request, redirect, Flask
 from flask_socketio import SocketIO, emit, send, join_room
-# import app
+# from app import app, socketio
 import eventlet
 eventlet.monkey_patch()
 app = Flask(__name__)
@@ -13,7 +13,7 @@ import database
 def welcome():
     if request.method == "POST":
         req = request.form
-        result = database.joinGame(req['code'],req['email'])
+        result = database.joinGame(req['code'],req['email'],False)
         if result != False :
             session['game'] = result['game']
             session['email'] = result['email']
@@ -22,7 +22,6 @@ def welcome():
             return redirect("/conversations")
         else:
             return redirect("/")
-
     else:
         page = {
             "title" : "Welcome to Castle Braumburg",
@@ -34,18 +33,18 @@ def welcome():
 def create_game():  
     if request.method == "POST":
         req = request.form
-        result = database.createGame(req['name'],req['length'])
+        result = database.createGame(req['name'],req['length'],req['email'])
         session
         print(req)
         # result = database.joinGame(req['code'],req['email'])
-        # if result != False :
-        #     session['game'] = result['game']
-        #     session['email'] = result['email']
-        #     session['character_id'] = result['character_id']
-        #     session['player_id'] = result['id']
-        #     return redirect("/conversations")
-        # else:
-            # return redirect("/")
+        if result != False :
+            session['game'] = result['game']
+            session['email'] = result['email']
+            session['character_id'] = result['character_id']
+            session['player_id'] = result['id']
+            return redirect("/conversations")
+        else:
+            return redirect("/")
         return "hello"
 
     else:
