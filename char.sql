@@ -11,7 +11,8 @@ INSERT INTO characters
     character_clue,
     primary_goal,
     secondary_goal,
-    tertiary_goal
+    tertiary_goal,
+    portrait
     )
     VALUES
 ('Professor',
@@ -54,7 +55,8 @@ If you are stuck, your Other People section for people of interest.',
         'Detective Ellacott has been showing tell-tale signs of lycanthropy.',
         '1. Stop the Imperium Ritual. It would be extremely dangerous for someone  to have power over all supernatural creatures. You must ensure the ritual is not  completed (20 POINTS). OR, if by some horrible circumstance the ritual is  completed, you must find and kill whoever wields its terrible power to stop them  wreaking havoc! (15 POINTS)',
         '2. Avenge the death of your brother. Find the cannibal who killed Nathan and bring them to justice. This is vigilante justice, so you don’t need to provide  anyone else with proof, but you do need to take down the correct individual to  get your points. (15 POINTS)',
-        '3. Jazz Music. You have been pretty stressed out lately, and you’ve found  nothing relaxes you like good ol’ jazz music. Make sure jazz music is playing often  throughout the evening. If Dartmore and Mrs Turngarden are satisfied you have  been a diligent DJ, you will receive 5 POINTS at the end of the night.'
+        '3. Jazz Music. You have been pretty stressed out lately, and you’ve found  nothing relaxes you like good ol’ jazz music. Make sure jazz music is playing often  throughout the evening. If Dartmore and Mrs Turngarden are satisfied you have  been a diligent DJ, you will receive 5 POINTS at the end of the night.',
+        'nm.jpg'
         ),
 ('Lord',
         'Edgar',
@@ -82,7 +84,8 @@ KELLY was also the first on the scene of the crime - if you are going to figure 
         'You and Count von Lucan were lovers.',
         '1. Solve the murder. You loved Veron dearly, so you want to know who would do such a terrible thing AND why. You receive 10 POINTS for being able to correctly identify the murderer at the end of the night, and 10 POINTS if you can correctly identify their motive.',
         '2. Find someone to settle down with. You are mourning Veron deeply. So deeply in fact, that you could use a shoulder to cry on. Sure, it’s probably rushing into things, but you’re in pain, dammit. To soothe your aching heart, you  need to find a partner to settle down with for the rest of your long, long life.  Convince someone to marry you (you must be in possession of a MARRIAGE  CERTIFICATE signed by you and your future spouse) for 10 POINTS.  Additionally, if your future partner is an immortal (a vampire or by some other  means), get an additional 5 POINTS.',
-        '3. Pour Wine. In line with your lavish lifestyle, you are quite a wine connoisseur. Refill 3 people’s drinks throughout the night, and explain to them the delicate bouquet of the wine in excruciating detail (5 POINTS).'
+        '3. Pour Wine. In line with your lavish lifestyle, you are quite a wine connoisseur. Refill 3 people’s drinks throughout the night, and explain to them the delicate bouquet of the wine in excruciating detail (5 POINTS).',
+        'eb.jpg'
         ),
 ('Doctor',
         'Josephine',
@@ -124,7 +127,8 @@ The ring you picked up must be worth a pretty penny - scope out potential buyers
 
 You must place at least one ribbon in each of the 3 sections of the game. If you  neglect to do so, you will lose 10 points for each section you did not place at least  one.',
         '2. Protect your Future. Seeing Joseph Shaw here tonight, you know you’ve  put yourself at risk of being discovered as a cannibal. You have decided to flee  come morning, so you need to make all preparations tonight. You can give yourself a new identity easily enough, but you need plenty of cash to do so. End up with at least £500 cash by the end of the night. (15 POINTS - 5 from the cash and 10 bonus)',
-        '3. Get a disguise. The final part of your plan will be to secure a disguise. Try  and get some spare clothes and earn yourself 5 POINTS. '
+        '3. Get a disguise. The final part of your plan will be to secure a disguise. Try  and get some spare clothes and earn yourself 5 POINTS. ',
+        'jm.jpg'
         ),
 ('Aunt',
         'Chastity',
@@ -162,7 +166,8 @@ You are worried about your health - it might be worthwhile to speak to DR MURRAY
         'Prof Montgomery is secretly a monk; specifically a brother of the order of the Statarius, a sect of monks with an academic interest in the supernatural.',
         '1. Find a way to remain on the Von Lucan estate. The ring’s magic only works within the borders of the estate. As the most senior member of the family, you’re sick of relying on the hospitality of family members. Procure the deed to the castle and claim what’s rightfully yours (20 points). If you can’t get it yourself, try and strike a deal with whoever ends up with it. If the owner at the end of the night has agreed to let you stay, you earn 10 POINTS.',
         '2. Find (and end the game with) your ring. You must recover your ring by any means necessary. At 300 years old, that thing is probably saving you from multiple heart attacks per day. Really, you’re surprised you’ve made it the whole week since Veron’s death. If you don’t have it back by the end of the evening, you’re a goner. (15 POINTS)',
-        '3. Get hitched. It’s been far too long since you’ve had a companion. Parties are  always a good place to meet people and you’ve had centuries to perfect your  flirting technique.... Find yourself a romantic partner and get them to sign a  MARRIAGE CERTIFICATE and earn 5 POINTS.'
+        '3. Get hitched. It’s been far too long since you’ve had a companion. Parties are  always a good place to meet people and you’ve had centuries to perfect your  flirting technique.... Find yourself a romantic partner and get them to sign a  MARRIAGE CERTIFICATE and earn 5 POINTS.',
+        'cvl.jpg'
         ),
 ('Ms',
         'Genevieve',
@@ -205,7 +210,8 @@ IMPORTANT NOTE: Although you do possess magic, you are classified as a  HUMAN (n
         'You went to pay your respects to Count Veron and discovered his body was missing from the grave. ',
         '1. Complete the Imperium Ritual. Find the remaining page of the ritual,  acquire all items and follow all instructions to wield the mighty Imperium Power!  (20 POINTS)! If you are successful, be sure to see the hosts who will provide you  with the details of your new ability. ',
         '2. Procure the deed to the castle. With the wellspring of power located at  the castle, you believe it’s the perfect place for you to rule. Own the castle and  never again will witches suffer at the hands of humans. You and your coven will  have eternal power and you can wield it as you like. (15 POINTS) ',
-        '3. Make a new couple! You may be a fearsome magic user with a vendetta against all  humans but at the end of the day, you’re also a hopeless romantic. You love love  and you love seeing people fall into it. Use your powers to make any two people  present tonight fall in love and be awarded (5 POINTS). '
+        '3. Make a new couple! You may be a fearsome magic user with a vendetta against all  humans but at the end of the day, you’re also a hopeless romantic. You love love  and you love seeing people fall into it. Use your powers to make any two people  present tonight fall in love and be awarded (5 POINTS). ',
+        'glc.jpg'
         ),
 ('Detective',
         'Samuel',
@@ -219,5 +225,81 @@ IMPORTANT NOTE: Although you do possess magic, you are classified as a  HUMAN (n
         'nan',
         'nan',
         'nan',
-        'nan'
+        'nan',
+        'se.jpg'
+        ),
+('Ms',
+        'Elysia',
+        'Von Lucan',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'evl.jpg'
+        ),
+('Mr',
+        'Donald',
+        'Lardaburger',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'dl.jpg'
+        ),
+('Ms',
+        'Kelly',
+        'O’Brien',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'kob.jpg'
+        ),
+('Ms',
+        'Harriet',
+        'Milne',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'hm.jpg'
+        ),
+('Mr ',
+        'Joseph',
+        'Shaw',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'nan',
+        'js.jpg'
         ),

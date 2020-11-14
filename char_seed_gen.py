@@ -17,7 +17,8 @@ print(
     character_clue,
     primary_goal,
     secondary_goal,
-    tertiary_goal
+    tertiary_goal,
+    portrait
     )
     VALUES"""
 )
@@ -26,7 +27,7 @@ for index, row in df.iterrows():
         print(
             f"""('{row['title']}',
         '{row['first_name']}',
-        '{row['last_name']}',
+        '{psycopg2.extensions.QuotedString(row['last_name'])}',
         '{row['public_description']}',
         '{row['private_description_cover_story']}',
         '{psycopg2.extensions.QuotedString(row['private_description_truth'])}',
@@ -36,7 +37,8 @@ for index, row in df.iterrows():
         '{row['character_clue']}',
         '{row['primary_goal']}',
         '{row['secondary_goal']}',
-        '{row['tertiary_goal']}'
+        '{row['tertiary_goal']}',
+        '{row['portrait']}'
         ),"""
         )
     except:
@@ -53,6 +55,7 @@ for index, row in df.iterrows():
         '{row['character_clue']}',
         '{row['primary_goal']}',
         '{row['secondary_goal']}',
-        '{row['tertiary_goal']}'
+        '{row['tertiary_goal']}',
+        '{row['portrait']}'
         ),"""
         )
