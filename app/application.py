@@ -55,7 +55,7 @@ def create_game():
     else:
         page = {
             "title": "Welcome to Castle Braumburg",
-            "background": "welcome/enter.jpg",
+            "background": "welcome/castle.jpg",
         }
         return render_template("create_game.html", page=page)
 
