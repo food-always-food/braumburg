@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Syne&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 
 div.container {
     background-position: center center;
@@ -76,7 +75,7 @@ h3.title{
 }
 
 body {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Josefin Sans', sans-serif;
 }
 
 p.light {
