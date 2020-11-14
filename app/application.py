@@ -2,12 +2,13 @@ from flask import render_template, session, request, redirect, Flask
 from flask_socketio import SocketIO, emit, send, join_room
 
 # from app import app, socketio
-import eventlet
+# import eventlet
 
-eventlet.monkey_patch()
-app = Flask(__name__)
-# app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
-app.config["SECRET_KEY"] = "1023912038109823aljksdflkajds"
+# eventlet.monkey_patch()
+application = Flask(__name__)
+# application.config['SECRET_KEY'] = os.environ['SECRET_KEY']
+application.config["SECRET_KEY"] = "1023912038109823aljksdflkajds"
+app = application
 socketio = SocketIO(app, async_mode=None)
 import database
 
