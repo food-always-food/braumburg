@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Syne&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 
 div.container {
     background-position: center center;
@@ -16,7 +15,7 @@ div.container {
 }
 
 h1,
-h2 {
+h2,h3 {
     font-family: 'Staatliches';
 }
 
@@ -51,13 +50,42 @@ h2.nameTop {
     font-size: 1rem;
 }
 
+h1.title {
+    color: #CDD1D3;
+    text-align: right;
+    margin-left: 1rem;
+    margin-bottom: -0.75rem;
+    font-size: 4.5rem;
+}
+
+h2.title {
+    color: #CDD1D3;
+    text-align: right;
+    margin-left: 1rem;
+    margin-bottom: -0.75rem;
+    font-size: 3rem;
+}
+
+h3.title{
+    color: #CDD1D3;
+    text-align: left;
+    margin-left: 1rem;
+    margin-bottom: -0.75rem;
+    font-size: 2rem;
+}
+
 body {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Josefin Sans', sans-serif;
 }
 
 p.light {
     color: #CDD1D3;
     text-align: justify;
+}
+
+p.light-centre {
+    color: #CDD1D3;
+    text-align: center;
 }
 
 p.local{
@@ -89,7 +117,7 @@ div.chat{
 .vertical-center {
     margin: 0;
     position: absolute;
-    top: 40%;
+    top: 50%;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
 }

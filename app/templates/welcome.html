@@ -18,27 +18,40 @@
 
 <body>
     <div class="se-pre-con"><img src="static/img/loader.gif" width="150 " style="text-align: center;"></div>
-    
+
     <!-- <p id="error" class="modal">The game has not been found</p>
       <a href="#error" rel="modal:open">Login</a> -->
     <div class="container full-height"
         style="background-image:linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.25)),url('static/img/{{ page.background }}')">
+        <div class="row">
+            <div class="col-md margin">
+                <h3 class="title">Welcome to</h3>
+                <h1 class='title'>Braumburg</h1>
+                <h2 class='title'>Castle</h2>
+            </div>
+        </div>
         <div class="row vertical-center">
             <div class="col-md margin">
-                <h1 class="light">Welcome</h1>
-                <p class="light">You're about to enter Castle Braumburg on October 11th, 1921. Keep your wits about you,
-                    and you might yet survive...</p>
+                <div class="margin">
+                    <p class="light-centre">To join an existing game enter your CASTLE CODE</p>
+                </div>
                 <form method="post" action="/">
                     <div class="form-group">
-                        <input name="code" type="text" class="form-control" placeholder="Enter Castle Code" required>
+                        <input name="code" type="text" class="form-control" placeholder="Type Castle Code" required>
+                    </div>
+                    <div class="margin">
+                        <p class="light-centre">And your email</p>
                     </div>
                     <div class="form-group">
-                        <input name="email" type="email" class="form-control" placeholder="Enter your email" required>
+                        <input name="email" type="email" class="form-control" placeholder="Type your email" required>
                     </div>
                     <center>
                         <button type="submit" class="start">Enter the Castle</button>
                     </center>
                 </form>
+                <div class="margin">
+                    <p class="light-centre">Don't have a code? <br><a href="/create-game">create a new game</a></p>
+                </div>
             </div>
         </div>
     </div>
