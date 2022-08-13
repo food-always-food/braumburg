@@ -12,6 +12,20 @@ app = application
 socketio = SocketIO(app, async_mode=None)
 import database
 
+def chatLinks(players, playerId):
+    links =[]
+    index = 0
+    for x in players:
+            if x["id"] != playerId:
+                order = [int(x["id"]), int(playerId)]
+                # print(order)
+                ordered = sorted(order)
+                # print(ordered)
+                link = f"{ordered[0]}-{ordered[1]}"
+                links.append(link)
+                players[index]["link"] = link
+            index += 1
+    return True
 
 @app.route("/", methods=["GET", "POST"])
 def welcome():
@@ -73,10 +87,17 @@ def waiting():
 @app.route("/index")
 def index():
     if session.get("game"):
-        character = database.getCharacter(session.get("character_id"))
-        print(character)
-        page = {"title": "home", "background": "home/home.jpg"}
-        return render_template("index.html", page=page, character=character)
+        playerId = session.get("character_id")
+        you = database.getCharacter(playerId)
+        players = database.allPlayers(session.get("game"))
+        page = {"title": "Home", "background": "home/home.jpg"}
+        return render_template(
+            "index.html",
+            page=page,
+            players=players,
+            localPlayer=playerId,
+            you=you,
+        )
     else:
         return redirect("/")
 
@@ -84,30 +105,71 @@ def index():
 @app.route("/character")
 def character():
     if session.get("game"):
-        character = database.getCharacter(session.get("character_id"))
-        print(character)
+        playerId = session.get("character_id")
+        you = database.getCharacter(playerId)
+        players = database.allPlayers(session.get("game"))
         page = {"title": "Character", "background": "character/character.jpg"}
-        return render_template("character.html", page=page, character=character)
+        return render_template(
+            "character.html",
+            page=page,
+            players=players,
+            localPlayer=playerId,
+            you=you,
+        )
+    else:
+        return redirect("/")
+
+@app.route("/map")
+def map():
+    if session.get("game"):
+        playerId = session.get("character_id")
+        you = database.getCharacter(playerId)
+        players = database.allPlayers(session.get("game"))
+        page = {"title": "map", "background": "goals/castle.jpg"}
+        return render_template(
+            "map.html",
+            page=page,
+            players=players,
+            localPlayer=playerId,
+            you=you,
+        )
+    else:
+        return redirect("/")
+
+@app.route("/goals")
+def goals():
+    if session.get("game"):
+        playerId = session.get("character_id")
+        you = database.getCharacter(playerId)
+        players = database.allPlayers(session.get("game"))
+        page = {"title": "goals", "background": "goals/castle.jpg"}
+        return render_template(
+            "goals.html",
+            page=page,
+            players=players,
+            localPlayer=playerId,
+            you=you,
+        )
     else:
         return redirect("/")
 
 
-@app.route("/map")
-def map():
-    page = {"title": "Goals", "background": "goals/castle.jpg"}
-    return render_template("map.html", page=page)
-
-
-@app.route("/goals")
-def goals():
-    page = {"title": "Goals", "background": "goals/castle.jpg"}
-    return render_template("goals.html", page=page)
-
-
 @app.route("/items")
 def items():
-    page = {"title": "Goals", "background": "goals/castle.jpg"}
-    return render_template("items.html", page=page, character=character)
+    if session.get("game"):
+        playerId = session.get("character_id")
+        you = database.getCharacter(playerId)
+        players = database.allPlayers(session.get("game"))
+        page = {"title": "Goals", "background": "goals/castle.jpg"}
+        return render_template(
+            "items.html",
+            page=page,
+            players=players,
+            localPlayer=playerId,
+            you=you,
+        )
+    else:
+        return redirect("/")
 
 
 @app.route("/conversations")
@@ -116,19 +178,7 @@ def conversations():
         playerId = session.get("character_id")
         you = database.getCharacter(playerId)
         players = database.allPlayers(session.get("game"))
-        links = []
-        index = 0
-        for x in players:
-            if x["id"] != playerId:
-                order = [int(x["id"]), int(playerId)]
-                print(order)
-                ordered = sorted(order)
-                print(ordered)
-                link = f"{ordered[0]}-{ordered[1]}"
-                links.append(link)
-                players[index]["link"] = link
-            index += 1
-        print(links)
+        chatLinks(players, playerId)
         page = {"title": "Conversations", "background": "conversations/chat.jpg"}
         return render_template(
             "conversations.html",
