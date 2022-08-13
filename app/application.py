@@ -12,20 +12,22 @@ app = application
 socketio = SocketIO(app, async_mode=None)
 import database
 
+
 def chatLinks(players, playerId):
-    links =[]
+    links = []
     index = 0
     for x in players:
-            if x["id"] != playerId:
-                order = [int(x["id"]), int(playerId)]
-                # print(order)
-                ordered = sorted(order)
-                # print(ordered)
-                link = f"{ordered[0]}-{ordered[1]}"
-                links.append(link)
-                players[index]["link"] = link
-            index += 1
+        if x["id"] != playerId:
+            order = [int(x["id"]), int(playerId)]
+            # print(order)
+            ordered = sorted(order)
+            # print(ordered)
+            link = f"{ordered[0]}-{ordered[1]}"
+            links.append(link)
+            players[index]["link"] = link
+        index += 1
     return True
+
 
 @app.route("/", methods=["GET", "POST"])
 def welcome():
@@ -119,6 +121,7 @@ def character():
     else:
         return redirect("/")
 
+
 @app.route("/map")
 def map():
     if session.get("game"):
@@ -135,6 +138,7 @@ def map():
         )
     else:
         return redirect("/")
+
 
 @app.route("/goals")
 def goals():
