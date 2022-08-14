@@ -4,10 +4,10 @@ import psycopg2, psycopg2.extras, os, string, random
 # database = os.environ['DATABASE']
 # user = os.environ['DBUSER']
 # password = os.environ['DBPASSWORD']
-host = "kandula.db.elephantsql.com"
-database = "fitzqquu"
-user = "fitzqquu"
-password = "NGdqfudlPXsoy9IJoeQPvN_TrYggqtLY"
+host = "tai.db.elephantsql.com"
+database = "iumjwzas"
+user = "iumjwzas"
+password = "tKEzPzSxUTQ7DdGZmbOsJ4HHbDStxy3K"
 
 
 def createCode():
