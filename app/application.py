@@ -66,8 +66,6 @@ def create_game():
             return redirect("/conversations")
         else:
             return redirect("/")
-        return "hello"
-
     else:
         page = {
             "title": "Welcome to Castle Braumburg",
