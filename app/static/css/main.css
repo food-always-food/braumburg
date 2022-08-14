@@ -1,13 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 
-div.container {
+div.braumburgBox {
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
     position: fixed; 
     overflow-y: scroll;
+    width: 100%;
 }
 
 .full-height {
